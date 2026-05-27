@@ -1,8 +1,10 @@
-import "../css/CreatePost.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./../css/CreatePost.css";
 
 function CreatePost() {
+  let navigate = useNavigate();
   let [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -20,9 +22,12 @@ function CreatePost() {
       .post(`${process.env.REACT_APP_API_URL}/posts`, formData)
       .then((response) => {
         console.log("게시글 등록 성공:", response.data);
+        alert("게시글이 등록되었습니다.");
+        navigate("/");
       })
       .catch((error) => {
         console.error("게시글 등록 실패:", error);
+        alert("게시글 등록에 실패했습니다.");
       });
   };
 
